@@ -1,0 +1,34 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
+.container {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    overflow: hidden;
+}
+.navItem {
+    font-size: 30px;
+    font-weight: 500;
+    list-style: none;
+    text-decoration: none;
+}
+
+.navbtn{
+    margin: 0 20px;
+}
+
+.route {
+    flex: 1;
+}
+
+.logo {
+    max-width: 300px;
+    max-height: 300px;
+}
