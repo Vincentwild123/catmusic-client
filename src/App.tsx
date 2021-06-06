@@ -1,25 +1,37 @@
 import React from "react";
-import style from "./App.module.less";
-import HelloWorld from "./components/HelloWorld.jsx";
-import Counter from "./components/Counter.jsx";
-import Default from "./components/Defaulte.jsx";
-import { BrowserRouter, Route, Link } from "react-router-dom";
+import { BrowserRouter, Route as ReactRoute, Redirect } from "react-router-dom";
 //@ts-ignore
-import Asider from "./components/rootComponents/Asider.tsx";
-//最外围页面框架
-
-export default function App(): React.ReactNode {
-  const itemList = ["a", "b", "c"];
+import router, { RouteType } from "./router/router.ts";
+//@ts-ignore
+import Asider from "@components/Asider/Asider.tsx";
+import { useSelector } from "react-redux";
+import { StateType } from "./reducers/index";
+import Login from "@/pages/Login";
+import style from "./App.module.less";
+const App: React.FC<{}> = () => {
+  //全局登录状态
+  const haveLogin = useSelector((state: StateType) => state.haveLogin);
   return (
     <BrowserRouter>
       <div className={style.container}>
-        <Asider itemList={itemList} />
-        <div className={style.route}>
-          <Route exact path="/" component={Default} />
-          <Route path="/counter" component={Counter} />
-          <Route path="/helloworld" component={HelloWorld} />
+        <Asider router={router} />
+        <div>
+          <ReactRoute exact path="/login" component={Login} />
+          {router.map((route: RouteType, index: number) => {
+            if (route.needAuth && !haveLogin)
+              return <Redirect key={index} to="/login" />;
+            return (
+              <ReactRoute
+                exact
+                key={index}
+                path={route.to}
+                component={route.component}
+              />
+            );
+          })}
         </div>
       </div>
     </BrowserRouter>
   );
-}
+};
+export default App;

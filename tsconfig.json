@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
     // Target latest version of ECMAScript.
-    "target": "esnext",
+    "target": "es5",
     // Search under node_modules for non-relative imports.
     "moduleResolution": "node",
     // Process & infer types from .js files.
@@ -14,7 +18,9 @@
     "isolatedModules": true,
     // Import non-ES modules as default imports.
     "esModuleInterop": true,
-    "jsx": "react"
+    "lib": ["esnext", "dom"],
+    "jsx": "react",
+    "module": "esnext"
   },
-  "include": ["src", "src/type-css.d.ts","src/**/.*"]
+  "include": ["src", "src/@types/.*", "src/**/.*"]
 }

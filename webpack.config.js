@@ -1,8 +1,8 @@
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
-
 const path = require("path");
+const resolve = (dir) => path.resolve(__dirname, dir);
 module.exports = {
   mode: "development",
   entry: __dirname + "/src/index.js",
@@ -47,14 +47,14 @@ module.exports = {
               localIdentName: "[local]_[hash:base64:5]",
             },
           },
-          "less-loader"
+          "less-loader",
         ],
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         loader: "url-loader",
         options: {
-          limit: 10000,
+          limit: 100000,
           name: "/dist/" + "img/[name].[hash:7].[ext]",
         },
       },
@@ -67,6 +67,13 @@ module.exports = {
         },
       },
     ],
+  },
+  resolve: {
+    alias: {
+      "@": resolve("src"),
+      "@components": resolve("src/components"),
+    },
+    extensions: [".ts", ".tsx", ".js", ".jsx", ".json"],
   },
   optimization: {
     minimizer: [
