@@ -5,5 +5,4 @@
 3. yarn
 4. npm run server
 
-## use with vin-cli is better
-### a template for create your react project
+## simple demo build with webpack+react+typescript
